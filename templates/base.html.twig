@@ -1,0 +1,19 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hoş Geldiniz{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+
+<img src="images/img-1.png" class="image_1">
+{% block mainContent %} {% endblock %}
+
+<footer>
+    {% block footer %} {% endblock %}
+
+</footer>
+</body>
+</html>

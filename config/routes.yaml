@@ -1,0 +1,17 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+admin_member:
+    path: /admin/member
+    controller: App\Controller\Admin\MemberController::index
+    defaults:
+        path: /adminbase.html.twig
+delete_member:
+    path: /member/{id}/delete
+    controller: App\Controller\MemberController::delete
+edit_member:
+    path: /member/{id}/edit
+    controller: App\Controller\MemberController::edit
+admin_user_form:
+        path: /admin/member/form
+        controller: App\Controller\Admin\MemberController::form

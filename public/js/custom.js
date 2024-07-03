@@ -276,13 +276,11 @@ $(function () {
 	
 	$('.deal-slider').slick({
         dots: false,
-        infinite: false,
 		prevArrow: '.previous-deal',
 		nextArrow: '.next-deal',
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
-		infinite: false,
         responsive: [{
             breakpoint: 1024,
             settings: {

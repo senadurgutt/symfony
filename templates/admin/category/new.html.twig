@@ -1,0 +1,9 @@
+{% block title %}New Category{% endblock %}
+
+{% block body %}
+    <h1>Create new Category</h1>
+
+    {{ include('admin/category/form.html.twig') }}
+
+    <a href="{{ path('category_index') }}">back to list</a>
+{% endblock %}

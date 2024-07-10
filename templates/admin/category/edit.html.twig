@@ -1,11 +1,12 @@
+
+{% extends 'base.html.twig' %}
+
 {% block title %}Edit Category{% endblock %}
 
 {% block body %}
     <h1>Edit Category</h1>
 
-    {{ include('admin/category/form.html.twig', {'button_label': 'Update'}) }}
+    {{ form(form) }}
 
-    <a href="{{ path('category_index') }}">back to list</a>
-
-    {{ include('admin/category/edit.html.twig') }}
+    <a href="{{ path('category_index') }}">Back to list</a>
 {% endblock %}

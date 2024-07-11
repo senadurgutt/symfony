@@ -46,15 +46,20 @@ class CategoryController extends AbstractController
             'form' => $form,
         ]);
     }
+
     /**
-     * @Route("/admin/category/{id}", name="category_show", methods={"GET"})
+     * @Route("/admin/category/{categoryId}", name="category_show", methods={"GET"})
+     * @param int $categoryId
+     * @return Response
      */
-    public function show(Category $category): Response
+    public function show(int $categoryId): Response
     {
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($categoryId);
         return $this->render('admin/category/show.html.twig', [
             'category' => $category,
         ]);
     }
+
     /**
      * @Route("/admin/category/edit/{id}", name="category_edit", methods={"GET", "POST"})
      */
@@ -81,7 +86,7 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();

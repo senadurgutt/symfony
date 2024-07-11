@@ -14,12 +14,12 @@ class CategoryController extends AbstractController
 {
     /**
      * @Route("/admin/category/index", name="category_index", methods={"GET"})
+     * @return Response
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(): Response
     {
-        $categories = $categoryRepository->findAll();
-
-        return $this->render('admin/category/index.html.twig', [
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        return $this->render('admin/category/index.html.twig', [ // renderda sorun var öncesinde çekiyor
             'categories' => $categories,
         ]);
     }
@@ -54,7 +54,8 @@ class CategoryController extends AbstractController
      */
     public function show(int $categoryId): Response
     {
-        $category = $this->getDoctrine()->getRepository(Category::class)->find($categoryId);
+        $category = $this->getDoctrine()->getRepository(Category::class)
+            ->find($categoryId);
         return $this->render('admin/category/show.html.twig', [
             'category' => $category,
         ]);

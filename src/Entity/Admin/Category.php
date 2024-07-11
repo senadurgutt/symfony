@@ -5,7 +5,7 @@ namespace App\Entity\Admin;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=App\Repository\Admin\CategoryRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\Admin\CategoryRepository")
  */
 class Category
 {
@@ -14,7 +14,7 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $categoryId;
+    private $id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -36,16 +36,9 @@ class Category
      */
     private $category;
 
-    public function getCategoryId(): ?int
+    public function getId(): ?int
     {
-        return $this->categoryId;
-    }
-
-    public function setCategoryId(int $categoryId): self
-    {
-        $this->categoryId = $categoryId;
-
-        return $this;
+        return $this->id;
     }
 
     public function getParentId(): ?int

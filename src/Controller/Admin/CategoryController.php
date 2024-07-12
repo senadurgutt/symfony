@@ -46,8 +46,6 @@ class CategoryController extends AbstractController
         ]);
     }
 
-
-
     /**
      * @Route("/admin/category/{id}", name="category_show", methods={"GET"})
      */
@@ -72,7 +70,6 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('category_index');
         }
 

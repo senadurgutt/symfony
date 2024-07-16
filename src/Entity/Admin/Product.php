@@ -4,7 +4,8 @@ namespace App\Entity\Admin;
 
 use App\Repository\Admin\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Member;
+use App\Entity\Admin\Category;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
@@ -28,9 +29,10 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $member_id;
+    private $member;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -38,9 +40,10 @@ class Product
     private $image;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Admin\Category")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $category_id;
+    private $category;
 
     public function getId(): ?int
     {
@@ -71,15 +74,14 @@ class Product
         return $this;
     }
 
-    public function getMemberId(): ?int
+    public function getMember(): ?Member
     {
-        return $this->member_id;
+        return $this->member;
     }
 
-    public function setMemberId(?int $member_id): self
+    public function setMember(?Member $member): self
     {
-        $this->member_id = $member_id;
-
+        $this->member = $member;
         return $this;
     }
 
@@ -95,15 +97,14 @@ class Product
         return $this;
     }
 
-    public function getCategoryId(): ?int
+    public function getCategory(): ?Category
     {
-        return $this->category_id;
+        return $this->category;
     }
 
-    public function setCategoryId(?int $category_id): self
+    public function setCategory(?Category $category): self
     {
-        $this->category_id = $category_id;
-
+        $this->category = $category;
         return $this;
     }
 }

@@ -21,7 +21,7 @@ final class Version20240716073454 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE product_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE product (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, descrption VARCHAR(255) DEFAULT NULL, member_id INT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, category_id INT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE product (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, member_id INT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, category_id INT DEFAULT NULL, PRIMARY KEY(id))');
     }
 
     public function down(Schema $schema): void

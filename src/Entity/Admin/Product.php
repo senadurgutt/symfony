@@ -25,15 +25,15 @@ class Product
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $descrption;
+    private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $member_id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", length=255, nullable=true)
      */
     private $image;
 
@@ -59,14 +59,14 @@ class Product
         return $this;
     }
 
-    public function getDescrption(): ?string
+    public function getDescription(): ?string
     {
-        return $this->descrption;
+        return $this->description;
     }
 
-    public function setDescrption(?string $descrption): self
+    public function setDescription(?string $description): self
     {
-        $this->descrption = $descrption;
+        $this->description = $description;
 
         return $this;
     }

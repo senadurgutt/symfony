@@ -38,11 +38,12 @@
                                 <td>{{ product.id }}</td>
                                 <td>{{ product.title }}</td>
                                 <td>{{ product.description }}</td>
-                                <td>{{ product.memberId }}</td>
+                                <td>{{ product.member.id }}</td>
                                 <td>{{ product.image }}</td>
-                                <td>{{ product.categoryId }}</td>
+                                <td>{{ product.category.id }}</td>
                                 <td>
-                                    <a href="{{ path('product_show', {'id': category.id}) }}" class="btn btn-primary" >Göster</a>  </td>
+                                    <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-primary" >Göster</a>
+                                </td>
                             </tr>
                         {% else %}
                             <tr>

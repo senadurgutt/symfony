@@ -76,6 +76,28 @@ class ProductController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/imgedit/{id}", name="product_imgedit", methods={"GET", "POST"})
+     */
+    public function imgedit(Request $request, Product $product, ProductRepository $productRepository): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productRepository->add($product, true);
+
+            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/product/edit.html.twig', [
+            'product' => $product,
+            'form' => $form,
+        ]);
+    }
+
+
     /**
      * @Route("/{id}", name="product_delete", methods={"POST"})
      */

@@ -15,14 +15,12 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link href="{{ asset('admin') }}/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
     <script LANGUAGE="JavaScript" type="text/javascript">
         function openWin( windowURL, windowName,windowFeatures) { window.open(windowURL, windowName,windowFeatures); }
     </script>
@@ -30,7 +28,6 @@
 <body class="skin-blue">
 <!-- Site wrapper -->
 <div class="wrapper">
-
     <header class="main-header">
         <a href="../../index2.html" class="logo"><b>Admin Panel</b></a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -108,7 +105,6 @@
         </nav>
     </header>
     {% block body %} {% endblock %}
-
     <!-- =============================================== -->
     <!-- Left side column. contains the sidebar -->
     <aside class="main-sidebar">
@@ -147,6 +143,7 @@
 
                 <li><a href="{{ url('member_index') }}"><i class="fa fa-circle-o"></i> Kullanıcılar</a></li>
                 <li><a href="{{ url('category_index') }}"><i class="fa fa-circle-o"></i> Kategoriler</a></li>
+            </ul>
         </section>
         <!-- /.sidebar -->
     </aside>

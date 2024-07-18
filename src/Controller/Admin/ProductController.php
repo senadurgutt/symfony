@@ -76,6 +76,26 @@ class ProductController extends AbstractController
         ]);
     }
 
+//    /**
+//     * @Route("/imgedit/{id}", name="product_imgedit", methods={"GET", "POST"})
+//     */
+//    public function imgedit(Request $request, Product $product, ProductRepository $productRepository): Response
+//    {
+//        $form = $this->createForm(ProductType::class, $product);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $productRepository->add($product, true);
+//
+//            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->renderForm('admin/product/imgedit.html.twig', [
+//            'product' => $product,
+//            'form' => $form,
+//        ]);
+//    }
+
 
     /**
      * @Route("/imgedit/{id}", name="product_imgedit", methods={"GET", "POST"})
@@ -86,16 +106,49 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productRepository->add($product, true);
+            $productRepository->save($product, true);
 
             return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/product/edit.html.twig', [
+        return $this->render('admin/product/imgedit.html.twig', [
             'product' => $product,
             'form' => $form,
         ]);
     }
+
+
+
+//        try {
+//            $form = $this->createForm(ProductType::class, $product);
+//            dd("Form oluşturma başarılı"); // Kontrol noktası
+//        } catch (\Exception $e) {
+//            dd($e->getMessage()); // Hata mesajını görüntüle
+//        }
+//
+//        // Form işleme
+//        try {
+//            $form->handleRequest($request);
+//            dd("Form işleme başarılı"); // Kontrol noktası
+//        } catch (\Exception $e) {
+//            dd($e->getMessage()); // Hata mesajını görüntüle
+//        }
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $productRepository->save($product, true);
+//
+//            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->render('admin/product/imgedit.html.twig', [
+//            'product' => $product,
+//            'form' => $form,
+//        ]);
+//    }
+
+
+
+
 
 
     /**

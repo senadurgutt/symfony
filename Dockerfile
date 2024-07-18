@@ -31,10 +31,14 @@ RUN apt-get update && \
         unzip \
         libpq-dev \
         && \
+    pecl install xdebug && docker-php-ext-enable xdebug \
     docker-php-ext-install pdo pdo_pgsql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# PHP ayarlarını kopyala
+COPY ./docker/nginx/php.ini /usr/local/etc/php/php.ini
 
 # Copy Symfony application files
 COPY . /var/www/html

@@ -60,6 +60,8 @@ services:
       - .:/var/www/html
     expose:
       - 9000
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
   db:
     image: postgres:15
     container_name: db

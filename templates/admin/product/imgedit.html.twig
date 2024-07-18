@@ -5,10 +5,10 @@
 {% block body %}
     <h1>Edit Product</h1>
 
-    {{ include('admin/product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('product_index') }}">back to list</a>
-
-    {{ include('admin/product/_delete_form.html.twig') }}
+    <form action="" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <input name="product_id" value="{{ id }}" type="number" readonly>
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
 {% endblock %}
-

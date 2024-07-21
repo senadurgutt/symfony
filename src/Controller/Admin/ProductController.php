@@ -96,6 +96,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/iupdate/{id}", name="product_iupdate", methods={"POST"})
      */
@@ -122,8 +123,17 @@ class ProductController extends AbstractController
         $em->persist($product);
         $em->flush();
         return $this->redirectToRoute('product_imgedit', ['id' => $product->getId()]);
-//        return $this->redirectToRoute('product_imgedit', ['id' => $id]);
     }
+
+    /**
+     * @return string
+     */
+    public function generateUniqueFileName()
+    {
+        return md5(uniqid());
+    }
+
+
 
     /**
      * @Route("/{id}", name="product_delete", methods={"POST"})
@@ -136,12 +146,6 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
     }
-    /**
-     * @return string
-     */
-    public function generateUniqueFileName()
-    {
-        return md5(uniqid());
-    }
-}
 
+
+}

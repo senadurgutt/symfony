@@ -1,4 +1,82 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Kullanıcı Listesi{% endblock %}
+
+{% block body %}
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Kullanıcı Ekleme
+                <small><a href="{{ path('product_index')  }}">Kullanıcı ekle </a></small>
+
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Examples</a></li>
+                <li class="active">bıdıbıdıbıd page</li>
+            </ol>
+        </section>
+
+        <section class="content">
+
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Quick Example</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="name" name="product[name]" class="form-control" id="_name" placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Surname</label>
+                            <input type="surname" name="product[surname]" class="form-control" id="_surname" placeholder="Surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" name="product[email]" class="form-control" id="_email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="product[password]" class="form-control" id="_password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputDescription1">Description</label>
+                            <input type="title" name="product[description]" class="form-control" id="_description" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputTitle1">Title</label>
+                            <input type="text" name="product[title]" class="form-control" id="_title" placeholder="title">
+                        </div>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box">
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div><!-- /.box -->
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+{% endblock %}

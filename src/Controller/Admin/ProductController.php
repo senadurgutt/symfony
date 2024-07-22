@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Admin;
 
 use App\Entity\Admin\Product;
@@ -61,16 +60,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/edit/{id}", name="product_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Product $product, ProductRepository $productRepository, CategoryRepository $categoryRepository ): Response
+    public function edit(Request $request, Product $product, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        $catlist = $categoryRepository -> findAll();
+        $catlist = $categoryRepository->findAll();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->add($product, true);
             $this->addFlash('success', 'Kayıt güncelleme başarılı');
-            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('product_edit', ['id' => $product->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/product/edit.html.twig', [
@@ -79,7 +79,6 @@ class ProductController extends AbstractController
             'form' => $form,
         ]);
     }
-
     /**
      * @Route("/imgedit/{id}", name="product_imgedit", methods={"GET", "POST"})
      */
@@ -136,7 +135,6 @@ class ProductController extends AbstractController
     {
         return md5(uniqid());
     }
-
 
 
     /**

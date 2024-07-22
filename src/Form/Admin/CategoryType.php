@@ -25,8 +25,7 @@ class CategoryType extends AbstractType
                 ],
                 'attr' => ['class' => 'form-control'],
                 'placeholder' => 'Select Category', // İsteğe bağlı: boş seçeneği ekleyebilirsiniz
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,69 +1,38 @@
 {% extends 'adminbase.html.twig' %}
 
-{% block title %}Kullanıcı Listesi{% endblock %}
+{% block title %}Ürün Düzenleme{% endblock %}
 
 {% block body %}
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Kullanıcı Ekleme
-                <small><a href="{{ path('product_index')  }}">Kullanıcı ekle </a></small>
-
+                Ürün Düzenleme
+                <small><a href="{{ path('product_index') }}">Ürünler</a></small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Examples</a></li>
-                <li class="active">bıdıbıdıbıd page</li>
-            </ol>
         </section>
-
         <section class="content">
-
             <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">Quick Example</h3>
-                </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
-                            <input type="name" name="product[name]" class="form-control" id="_name" placeholder="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Surname</label>
-                            <input type="surname" name="product[surname]" class="form-control" id="_surname" placeholder="Surname">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" name="product[email]" class="form-control" id="_email" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" name="product[password]" class="form-control" id="_password" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputDescription1">Description</label>
-                            <input type="title" name="product[description]" class="form-control" id="_description" placeholder="Description">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputTitle1">Title</label>
-                            <input type="text" name="product[title]" class="form-control" id="_title" placeholder="title">
-                        </div>
-                    </div><!-- /.box-body -->
+                {{ form_start(form, {'attr': {'role': 'form', 'method': 'post'}}) }}
+                <div class="box-body">
+                    {{ form_row(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }}
+                    {{ form_row(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description'}}) }}
+                    {{ form_row(form.member, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
+                </div><!-- /.box-body -->
 
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ path('product_index') }}">back to list</a>
+                </div>
+                {{ form_end(form) }}
+                {{ include('admin/product/_delete_form.html.twig') }}
             </div>
         </section>
-
         <!-- Main content -->
         <section class="content">
-
             <div class="box">
                 <div class="box-footer clearfix">
                     <ul class="pagination pagination-sm no-margin pull-right">
@@ -75,8 +44,6 @@
                     </ul>
                 </div>
             </div><!-- /.box -->
-
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
-
 {% endblock %}

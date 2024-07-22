@@ -39,7 +39,8 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->add($product, true);
-            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Yeni ürün eklendi !');
+            return $this->redirectToRoute('product_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/product/new.html.twig', [
@@ -48,6 +49,8 @@ class ProductController extends AbstractController
             'catlist' => $catlist,
         ]);
     }
+
+
 
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})

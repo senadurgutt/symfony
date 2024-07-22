@@ -1,11 +1,41 @@
 {% extends 'adminbase.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{% block title %}Yeni Ürün{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Yeni Ürün
+                <small><a href="{{ path('product_index') }}">Ürünler</a></small>
+            </h1>
+        </section>
+        <section class="content">
+            {% for label, messages in app.flashes %}
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="box box-primary">
+                <!-- form start -->
+                {{ form_start(form, {'attr': {'role': 'form', 'method': 'post'}}) }}
+                <div class="box-body">
+                    {{ form_row(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }}
+                    {{ form_row(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description'}}) }}
+                    {{ form_row(form.member, {'attr': {'class': 'form-control'}}) }}
+{#                    {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}#}
+                    {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
+                </div><!-- /.box-body -->
 
-    {{ include('admin/product/_form.html.twig') }}
-
-    <a href="{{ path('product_index') }}">back to list</a>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ path('product_index') }}">Geri Dön</a>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </section>
+    </div><!-- /.content-wrapper -->
 {% endblock %}

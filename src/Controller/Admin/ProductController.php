@@ -33,6 +33,7 @@ class ProductController extends AbstractController
     public function new(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $product = new Product();
+        $catlist = $categoryRepository->findAll();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -44,6 +45,7 @@ class ProductController extends AbstractController
         return $this->renderForm('admin/product/new.html.twig', [
             'product' => $product,
             'form' => $form,
+            'catlist' => $catlist,
         ]);
     }
 

@@ -22,7 +22,7 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
-        return $this->render('admin/product/index.html.twig.twig', [
+        return $this->render('admin/product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
     }
@@ -42,15 +42,12 @@ class ProductController extends AbstractController
             $this->addFlash('success', 'Yeni ürün eklendi !');
             return $this->redirectToRoute('product_new', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('admin/product/new.html.twig', [
             'product' => $product,
             'form' => $form,
             'catlist' => $catlist,
         ]);
     }
-
-
 
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
@@ -61,7 +58,6 @@ class ProductController extends AbstractController
             'product' => $product,
         ]);
     }
-
     /**
      * @Route("/edit/{id}", name="product_edit", methods={"GET", "POST"})
      */
@@ -91,12 +87,10 @@ class ProductController extends AbstractController
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->save($product, true);
             return $this->redirectToRoute('product_imgedit', ['id' => id], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('admin/product/imgedit.html.twig', [
             'product' => $product,
             'form' => $form,
@@ -104,14 +98,12 @@ class ProductController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/iupdate/{id}", name="product_iupdate", methods={"POST"})
      */
     public function iupdate(Request $request, Product $product, $id, ProductRepository $productRepository): Response
     {
         $form = $this->createForm(ProductType::class, $product);
-
         $form->handleRequest($request);
 
         /* @var $file File */
@@ -132,7 +124,6 @@ class ProductController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('product_imgedit', ['id' => $product->getId()]);
     }
-
     /**
      * @return string
      */
@@ -140,8 +131,6 @@ class ProductController extends AbstractController
     {
         return md5(uniqid());
     }
-
-
     /**
      * @Route("/{id}", name="product_delete", methods={"POST"})
      */
@@ -150,9 +139,6 @@ class ProductController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }
-
         return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }

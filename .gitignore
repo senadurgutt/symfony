@@ -42,6 +42,8 @@ coverage/
 # Generated assets and caches
 /public/build/
 /public/uploads/
+/public/img/
+/public/images/
 /public/media/cache/
 /public/media/tmp/
 

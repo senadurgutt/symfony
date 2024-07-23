@@ -3,17 +3,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Hoş Geldiniz{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
+{% include 'header.html.twig' %}
 
-<img src="images/img-1.png" class="image_1">
-{% block mainContent %} {% endblock %}
+
+{% block mainContent %}
+    {% include 'mainContent.html.twig' %}
+{% endblock %}
 
 <footer>
-    {% block footer %} {% endblock %}
-
+    {% block footer %}
+        {% include 'footer.html.twig' %}
+    {% endblock %}
 </footer>
 </body>
 </html>

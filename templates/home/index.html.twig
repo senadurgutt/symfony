@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block title %}burada yazan yukarıdaki alanda yazıyor{% endblock %}
-{#eğer bu satırı yazmazsan frontbase deki title otomatik geliek#}
+{% block title %}ART GALLERY{% endblock %}
 {% block mainContent %} {% include 'mainContent.html.twig' %} {% endblock %}
+{% block navbar %} {% include 'header.html.twig' %} {% endblock %}
+
 {% block footer %} {% include 'footer.html.twig' %} {% endblock %}
 {% block body %}
 <style>
@@ -10,12 +11,12 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello ✅</h1>
 
     This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/PHP Projects/symfony/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/PHP Projects/symfony/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+{#    <ul>#}
+{#        <li>Your controller at <code><a href="{{ 'C:/PHP Projects/symfony/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>#}
+{#        <li>Your template at <code><a href="{{ 'C:/PHP Projects/symfony/templates/home/index.html.twig.twig'|file_link(0) }}">templates/home/index.html.twig.twig</a></code></li>#}
+{#    </ul>#}
 </div>
 {% endblock %}

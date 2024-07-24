@@ -55,8 +55,10 @@ class CategoryController extends AbstractController
         if (!$category) {
             throw $this->createNotFoundException('The category does not exist');
         }
+        $products = $category->getProducts();
         return $this->render('admin/category/show.html.twig', [
             'category' => $category,
+            'products' => $products,
         ]);
     }
 

@@ -46,10 +46,10 @@
                 <a href="index.html">Anasayfa</a>
                 <a href="products.html">Ürünler</a>
                 <a href="about.html" onmouseover="showCategories()" onmouseout="hideCategories()">Kategoriler</a>
-                <div id="categoryList" style="display: none;" onmouseover="keepCategories()" onmouseout="hideCategories()">>
+                <div id="categoryList" style="display: none;" onmouseover="keepCategories()" onmouseout="hideCategories()">
                     <ul>
                         {% for category in categories %}
-                            <li>{{ category.category }}</li>
+                            <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.category }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

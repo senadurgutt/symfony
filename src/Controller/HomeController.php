@@ -10,20 +10,11 @@ use App\Repository\Admin\CategoryRepository;
 
 class HomeController extends AbstractController
 {
-//    /**
-//     * @Route("/home", name="app_home")
-//     */
-//    public function index(): Response
-//    {
-//        return $this->render('/base.html.twig', [
-//            'controller_name' => 'HomeController',
-//        ]);
-//    }
-
+//
     /**
      * @Route("/home", name="home")
      */
-    public function index(ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         $products = $productRepository->findAll();
         $categories = $categoryRepository->findAll();
@@ -36,4 +27,19 @@ class HomeController extends AbstractController
     }
 
 
+    /**
+     * @Route("/categories/{id}", name="categories", methods={"GET"})
+     */
+    public function catShow(int $id, CategoryRepository $categoryRepository,ProductRepository $productRepository): Response
+    {
+        $category = $categoryRepository->find($id);
+        if (!$category) {
+            throw $this->createNotFoundException('The category does not exist');
+        }
+        $products = $category->getProducts();
+        return $this->render('admin/category/catshow.html.twig', [
+            'category' => $category,
+            'products' => $products,
+        ]);
+    }
 }

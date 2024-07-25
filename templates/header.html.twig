@@ -49,7 +49,7 @@
                 <div id="categoryList" style="display: none;" onmouseover="keepCategories()" onmouseout="hideCategories()">
                     <ul>
                         {% for category in categories %}
-                            <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.category }}</a></li>
+                            <li><a href="{{ path('categories', {'id': category.id}) }}">{{ category.category }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

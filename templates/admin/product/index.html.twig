@@ -44,7 +44,7 @@
                                         {% if product.image is null %}
                                             Add Image
                                         {% else %}
-                                            <img src="{{ asset('img/' ~ product.image) }}" height="40">
+                                            <img src="{{ asset(product.image) }}" height="40">
                                         {% endif %}
                                     </a>
                                 </td>

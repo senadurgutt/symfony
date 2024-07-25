@@ -114,40 +114,40 @@
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
 
-            <!-- Kategoriye Ait Ürünler -->
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Kategoriye Ait Ürünler</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Ürün ID</th>
-                            <th>Ürün Adı</th>
-                            <th>Başlık</th>
-                            <th>Açıklama</th>
-                            <th>Kategori</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for product in products %}
-                            <tr>
-                                <td>{{ category.id }}</td>
-                                <td>{{ category.name }}</td>
-                                <td>{{ category.title }}</td>
-                                <td>{{ category.description }}</td>
-                                <td>{{ category.category }}</td>
-                                <td>
-                                    <a href="{{ path('product_show', {'id': product.id}) }}">görüntüle</a>
-                                    <a href="{{ path('product_edit', {'id': product.id}) }}">düzenle</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+{#            <!-- Kategoriye Ait Ürünler -->#}
+{#            <div class="box">#}
+{#                <div class="box-header">#}
+{#                    <h3 class="box-title">Kategoriye Ait Ürünler</h3>#}
+{#                </div><!-- /.box-header -->#}
+{#                <div class="box-body">#}
+{#                    <table class="table table-bordered">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>Ürün ID</th>#}
+{#                            <th>Ürün Adı</th>#}
+{#                            <th>Başlık</th>#}
+{#                            <th>Açıklama</th>#}
+{#                            <th>Kategori</th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{#                        {% for product in products %}#}
+{#                            <tr>#}
+{#                                <td>{{ category.id }}</td>#}
+{#                                <td>{{ category.name }}</td>#}
+{#                                <td>{{ category.title }}</td>#}
+{#                                <td>{{ category.description }}</td>#}
+{#                                <td>{{ category.category }}</td>#}
+{#                                <td>#}
+{#                                    <a href="{{ path('product_show', {'id': product.id}) }}">görüntüle</a>#}
+{#                                    <a href="{{ path('product_edit', {'id': product.id}) }}">düzenle</a>#}
+{#                                </td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                </div><!-- /.box-body -->#}
+{#            </div><!-- /.box -->#}
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

@@ -98,6 +98,39 @@ class ProductController extends AbstractController
         ]);
     }
 
+
+//    /**
+//     * @Route("/iupdate/{id}", name="product_iupdate", methods={"POST"})
+//     */
+//    public function iupdate(Request $request, Product $product, $id, ProductRepository $productRepository): Response
+//    {
+//        $form = $this->createForm(ProductType::class, $product);
+//        $form->handleRequest($request);
+//
+//        /* @var $file File */
+//        $file = $request->files->get('image');
+////        $fileName = $this->generateUniqueFileName() . '.' . $file->getExtension();
+//
+//        $fileName = $this->generateUniqueFileName() . '.' . $file->getClientOriginalExtension();
+//        $filePath = $this->getParameter('images_directory') . '/' . $fileName;
+//        try {
+//            $file->move(
+//                $this->getParameter('images_directory'), // services.yaml da tanımladım
+//                $fileName
+//            );
+//        } catch (FileException $e) {
+//            throw new FileException("File upload error");
+//        }
+//        $product->setImage($filePath);
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($product);
+//        $em->flush();
+//        return $this->redirectToRoute('product_imgedit', ['id' => $product->getId()]);
+//
+//    }
+
+
+
     /**
      * @Route("/iupdate/{id}", name="product_iupdate", methods={"POST"})
      */
@@ -108,22 +141,34 @@ class ProductController extends AbstractController
 
         /* @var $file File */
         $file = $request->files->get('image');
-        $fileName = $this->generateUniqueFileName() . '.' . $file->getExtension();
 
-        try {
-            $file->move(
-                $this->getParameter('images_directory'), // services.yaml da tanımladım
-                $fileName
-            );
-        } catch (FileException $e) {
-            throw new FileException("File upload error");
+        if ($file) {
+            $fileName = $this->generateUniqueFileName() . '.' . $file->getClientOriginalExtension();
+
+            // Dosya yolunu oluştur
+            $filePath = 'img/' . $fileName;
+
+            try {
+                // Dosyayı hedef dizine taşı
+                $file->move(
+                    $this->getParameter('images_directory'), // services.yaml'da tanımladım
+                    $fileName
+                );
+                $product->setImage($filePath);
+
+                // Veritabanında güncelleme yap
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($product);
+                $em->flush();
+            } catch (FileException $e) {
+                throw new FileException("File upload error");
+            }
         }
-        $product->setImage($fileName);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($product);
-        $em->flush();
+
         return $this->redirectToRoute('product_imgedit', ['id' => $product->getId()]);
     }
+
+
     /**
      * @return string
      */

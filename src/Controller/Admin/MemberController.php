@@ -25,12 +25,12 @@ class MemberController extends AbstractController
     {
         $members = $this->entityManager->getRepository(Member::class)->findAll();
 
-        return $this->render('admin/member/index.html.twig.twig', [
+        return $this->render('admin/member/index.html.twig', [
             'members' => $members,
         ]);
     }
     /**
-     * @Route("/admin/member/form", name="member_form")
+     * @Route("/register", name="member_form")
      */
     public function form(Request $request): Response
     {

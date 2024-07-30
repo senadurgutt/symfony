@@ -1,0 +1,29 @@
+security:
+  # Encoders
+  encoders:
+    App\Entity\User:
+      algorithm: auto
+
+  # Roles
+  role_hierarchy:
+    ROLE_ADMIN:       ROLE_USER
+    ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+  # Providers
+  providers:
+    in_memory: { memory: null }
+
+  # Firewalls
+  firewalls:
+    main:
+      anonymous: true
+      form_login:
+        login_path: /login
+        check_path: /login_check
+      logout:
+        path: /logout
+
+  # Access Control
+  access_control:
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/, roles: ROLE_USER }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-{% include 'header.html.twig' %}
+{% include 'header.html.twig' with {'categories': categories} %}
 
 {% block mainContent %}
 {% endblock %}

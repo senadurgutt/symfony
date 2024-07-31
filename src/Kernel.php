@@ -1,36 +1,24 @@
 <?php
-// src/Kernel.php
+
 namespace App;
 
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class Kernel extends BaseKernel
 {
-    public function registerBundles(): iterable
-    {
-        $contents = [
-            // List your bundles here
-        ];
+    use MicroKernelTrait;
 
-        foreach ($contents as $bundle) {
-            yield $bundle;
-        }
+    protected function configureContainer(ContainerConfigurator $container): void
+    {
+        $container->import('../config/packages/*.yaml');
+        $container->import('../config/services.yaml');
     }
 
-    public function configureContainer(LoaderInterface $loader): void
+    protected function configureRoutes(RoutingConfigurator $routes): void
     {
-        $loader->load($this->getProjectDir().'/config/packages/*.yaml');
-        $loader->load($this->getProjectDir().'/config/services.yaml');
-    }
-
-    public function configureRoutes(LoaderInterface $loader): void
-    {
-        $loader->load($this->getProjectDir().'/config/routes/*.yaml');
-    }
-
-    public function registerContainerConfiguration(LoaderInterface $loader): void
-    {
-        $loader->load($this->getProjectDir().'/config/services.yaml');
+        $routes->import('../config/routes/*.yaml');
     }
 }

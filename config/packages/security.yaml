@@ -1,46 +1,7 @@
-## config/packages/security.yaml
-#security:
-#  # Encoders
-#  encoders:
-#    App\Entity\User:
-#      algorithm: auto
-#
-#  # Roles
-#  role_hierarchy:
-#    ROLE_ADMIN: ROLE_USER
-#    ROLE_SUPER_ADMIN: ROLE_ADMIN
-#
-#  # Providers
-#  providers:
-#    in_memory:
-#      memory: null
-#
-#  # Firewalls
-#  firewalls:
-#    main:
-#      anonymous: true
-#      form_login:
-#        login_path: app_login
-#        check_path: app_login
-#        default_target_path: /home
-#      logout:
-#        path: app_logout
-#        target: /home
-#
-#  # Access Control
-#  access_control:
-#    - { path: ^/admin, roles: ROLE_ADMIN }
-#    - { path: ^/, roles: ROLE_USER }
-#    - { path: ^/home, roles: ROLE_USER } # Örneğin, giriş yapmış kullanıcılar için
-#    - { path: ^/admin, roles: ROLE_ADMIN } # Admin sayfaları için
-#
-
-
 security:
   encoders:
     App\Entity\Member:
       algorithm: auto
-
 
   role_hierarchy:
     ROLE_ADMIN: ROLE_USER
@@ -52,12 +13,8 @@ security:
         property: email
 
   firewalls:
-    dev:
-      pattern: ^/(_(profiler|wdt)|css|images|js)/
-      security: false
-
     main:
-      anonymous: lazy
+      anonymous: true
       provider: app_user_provider
       form_login:
         login_path: app_login
@@ -69,10 +26,9 @@ security:
         csrf_token_generator: security.csrf.token_manager
       logout:
         path: app_logout
-        target: app_login
+        target: home
 
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/home, roles: ROLE_USER }
-    - { path: ^/admin, roles: ROLE_ADMIN }

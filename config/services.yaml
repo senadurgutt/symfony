@@ -15,10 +15,8 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
-  App\Repository\UserRepository:
-    tags: ['doctrine.repository_service']
 
-  App\Controller\MemberController:
+  App\Controller\Admin\MemberController:
     autowire: true
     public: true
 

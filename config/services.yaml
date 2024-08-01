@@ -21,3 +21,4 @@ services:
   App\Controller\MemberController:
     autowire: true
     public: true
+

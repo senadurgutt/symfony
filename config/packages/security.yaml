@@ -38,8 +38,9 @@
 
 security:
   encoders:
-    App\Entity\User:
+    App\Entity\Member:
       algorithm: auto
+
 
   role_hierarchy:
     ROLE_ADMIN: ROLE_USER
@@ -61,9 +62,10 @@ security:
       form_login:
         login_path: app_login
         check_path: app_login
-        default_target_path: home
         username_parameter: email
         password_parameter: password
+        default_target_path: home
+        always_use_default_target_path: true
         csrf_token_generator: security.csrf.token_manager
       logout:
         path: app_logout

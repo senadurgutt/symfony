@@ -20,10 +20,12 @@ class LoginFormType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'csrf_protection' => true,
+            'csrf_field_name' => '_csrf_token', // Bu alana dikkat edin
+//            'csrf_token_id'   => 'authenticate', // Token ID'si tanımlanabilir
         ]);
     }
 }

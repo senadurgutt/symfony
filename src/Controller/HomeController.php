@@ -30,13 +30,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/categories/{id}", name="categories", methods={"GET"})
      */
-    public function catShow(int $id, CategoryRepository $categoryRepository,ProductRepository $productRepository): Response
+    public function productCategoriesShow(int $id, CategoryRepository $categoryRepository,ProductRepository $productRepository): Response
     {
         $category = $categoryRepository->find($id);
         if (!$category) {
             throw $this->createNotFoundException('The category does not exist');
         }
         $products = $category->getProducts();
+
         return $this->render('admin/category/catshow.html.twig', [
             'category' => $category,
             'products' => $products,

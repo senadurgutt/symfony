@@ -25,7 +25,7 @@
                         <div class="product_box">
                             <h4 class="bursh_text">{{ product.title }}</h4>
                             <p class="lorem_text">{{ product.description }}</p>
-                            <img src="{{ asset('img/' ~ product.image) }}" class="image_1">
+                            <img src="{{ asset(product.image) }}" class="image_1">
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>

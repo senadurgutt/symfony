@@ -33,6 +33,8 @@ class HomeController extends AbstractController
     public function productCategoriesShow(int $id, CategoryRepository $categoryRepository,ProductRepository $productRepository): Response
     {
         $category = $categoryRepository->find($id);
+        $categories = $categoryRepository->findAll();
+
         if (!$category) {
             throw $this->createNotFoundException('The category does not exist');
         }
@@ -41,6 +43,8 @@ class HomeController extends AbstractController
         return $this->render('categories.html.twig', [
             'category' => $category,
             'products' => $products,
+            'categories' => $categories,
+
         ]);
     }
 }

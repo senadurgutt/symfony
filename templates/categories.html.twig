@@ -1,13 +1,7 @@
-<!-- banner section start -->
-<div class="banner_section">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Your banner items -->
-        </div>
-    </div>
-</div>
-<!-- banner section end -->
 
+{% extends 'base.html.twig' %}
+
+{% block mainContent %}
 <!-- product section start -->
 <div class="product_section layout_padding">
     <div class="container">
@@ -20,7 +14,7 @@
         <div class="product_section_2 layout_padding">
             <div class="row">
                 {% for product in products %}
-                    <div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-1 col-sm-6">
                         <div class="product_box">
                             <h4 class="bursh_text">{{ product.title }}</h4>
                             <p class="lorem_text">{{ product.description }}</p>
@@ -42,3 +36,4 @@
     </div>
 </div>
 <!-- product section end -->
+{% endblock %}

@@ -1,5 +1,7 @@
 security:
-  encoders:
+  enable_authenticator_manager: true
+
+  password_hashers:
     App\Entity\Member:
       algorithm: auto
 
@@ -14,16 +16,10 @@ security:
 
   firewalls:
     main:
-      anonymous: true
       provider: app_user_provider
-      form_login:
-        login_path: app_login
-        check_path: app_login
-        username_parameter: email
-        password_parameter: password
-        default_target_path: home
-        always_use_default_target_path: true
-        csrf_token_generator: security.csrf.token_manager
+      custom_authenticators:
+        - App\Security\LoginFormAuthenticator
+
       logout:
         path: app_logout
         target: home

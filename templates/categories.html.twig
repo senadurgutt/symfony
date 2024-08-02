@@ -1,4 +1,3 @@
-<!-- templates/catshow.html.twig -->
 <!-- banner section start -->
 <div class="banner_section">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -14,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="product_taital">Our Products</h1>
+                <h1 class="product_taital">{{ category.category }} Kategorisi</h1>
                 <p class="product_text">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
             </div>
         </div>
@@ -25,7 +24,7 @@
                         <div class="product_box">
                             <h4 class="bursh_text">{{ product.title }}</h4>
                             <p class="lorem_text">{{ product.description }}</p>
-                            <img src="{{ asset('img/' ~ product.image) }}" class="image_1">
+                            <img src="{{ asset(product.image) }}" class="image_1">
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>

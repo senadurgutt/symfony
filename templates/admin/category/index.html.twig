@@ -41,7 +41,7 @@
                                     <td>{{ category.description }}</td>
                                     <td>{{ category.category }}</td>
                                     <td>
-                                        <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-primary" >Göster</a>
+                                        <a href="{{ path('categories', {'id': category.id}) }}" class="btn btn-primary" >Göster</a>
                                     </td>
                                 </tr>
                             {% endfor %}

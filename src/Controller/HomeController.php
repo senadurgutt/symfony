@@ -38,7 +38,7 @@ class HomeController extends AbstractController
         }
         $products = $category->getProducts();
 
-        return $this->render('admin/category/catshow.html.twig', [
+        return $this->render('categories.html.twig', [
             'category' => $category,
             'products' => $products,
         ]);

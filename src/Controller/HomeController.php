@@ -8,9 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Admin\ProductRepository;
 use App\Repository\Admin\CategoryRepository;
 
+
 class HomeController extends AbstractController
 {
-//
     /**
      * @Route("/home", name="home")
      */
@@ -26,11 +26,10 @@ class HomeController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("/categories/{id}", name="categories", methods={"GET"})
+     * @Route("/categories/{id}", name="categories", requirements={"id"="\d+"})
      */
-    public function productCategoriesShow(int $id, CategoryRepository $categoryRepository,ProductRepository $productRepository): Response
+    public function productCategoriesShow(int $id, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
         $category = $categoryRepository->find($id);
         $categories = $categoryRepository->findAll();
@@ -44,7 +43,6 @@ class HomeController extends AbstractController
             'category' => $category,
             'products' => $products,
             'categories' => $categories,
-
         ]);
     }
 }

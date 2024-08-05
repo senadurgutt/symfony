@@ -422,7 +422,7 @@ button {
 .product_box {
     width: 100%;
     background-color: #ffffff;
-    height: auto;
+    height: fit-content;
     border: 1px solid #7d7d7c;
     padding: 20px 0px 0px 0px;
     margin-top: 30px;
@@ -442,6 +442,7 @@ button {
     text-align: center;
     color: #50504f;
     margin: 0px;
+    height: 60px;
 }
 
 .image_1 {
@@ -482,13 +483,13 @@ button {
 }
 
 .buy_bt li a:hover {
-    background-color: #f5ddb6;
+    background-color: #FFE495;
     color: #ffffff;
 }
 
 .buy_bt li.active a {
-    background-color: #f5ddb6;
-    color: #fff;
+    background-color: #8677A7;
+    color: #e83e8c;
 }
 
 .price_text {

@@ -1,14 +1,14 @@
 {% extends 'adminbase.html.twig' %}
 
-{% block title %}Kullanıcı Listesi{% endblock %}
+{% block title %}YORUMLAR{% endblock %}
 
 {% block body %}
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Kullanıcı Listesi
-                <small><a href="{{ path('member_form') }}">Kullanıcı ekle </a></small>
+            <h1>YORUMLAR
+                <small><a href="{{ path('comment_new') }}">Kullanıcı ekle </a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -38,13 +38,13 @@
                         <tbody>
                         {% for admin_comment in admin_comments %}
                             <tr>
-                                <td>{{ comment.id }}</td>
-                                <td>{{ comment.comment }}</td>
-                                <td>{{ comment.userid }}</td>
-                                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ admin_comment.id }}</td>
+                                <td>{{ admin_comment.comment }}</td>
+                                <td>{{ admin_comment.userid }}</td>
+                                <td>{{ admin_comment.createdAt ? admin_comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('comment_show', {'id': comment.id}) }}">show</a>
-                                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+                                    <a href="{{ path('comment_show', {'id': admin_comment.id}) }}">show</a>
+                                    <a href="{{ path('comment_edit', {'id': admin_comment.id}) }}">edit</a>
                                 </td>
                             </tr>
                         {% else %}

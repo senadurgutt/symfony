@@ -91,6 +91,7 @@
 
 
 
+
 namespace App\Entity;
 
 use App\Repository\AdminCommentRepository;
@@ -117,9 +118,9 @@ class AdminComment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="comments")
-     * @ORM\JoinColumn(name="userid", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $member;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -145,19 +146,17 @@ class AdminComment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
-
         return $this;
     }
 
-    public function getUser(): ?Member
+    public function getMember(): ?Member
     {
-        return $this->user;
+        return $this->member;
     }
 
-    public function setUser(?Member $user): self
+    public function setMember(?Member $member): self
     {
-        $this->user = $user;
-
+        $this->member = $member;
         return $this;
     }
 
@@ -169,7 +168,6 @@ class AdminComment
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -181,7 +179,6 @@ class AdminComment
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-
         return $this;
     }
 }

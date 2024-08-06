@@ -77,14 +77,18 @@ class HomeController extends AbstractController
         $comments = $product->getComments();
         $categories = $categoryRepository->findAll();
 
+        // Ürünün kategorisini al
+        $category = $product->getCategory();
 
         return $this->render('product_show.html.twig', [
             'product' => $product,
             'categories' => $categories,
             'comments' => $comments,
             'comment_form' => $commentForm->createView(),
+            'category' => $category, // Kategori değişkenini template'e gönder
         ]);
     }
+
 
     /**
      * @Route("/base", name="base")

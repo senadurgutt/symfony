@@ -1,16 +1,126 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}{{ product.title }}{% endblock %}#}
+
+{#{% block mainContent %}#}
+{#    <div class="container mt-4">#}
+{#        <div class="row">#}
+{#            <div class="col-lg-6">#}
+{#                <h1 class="product-title">{{ product.title }}</h1>#}
+{#                <p class="product-description">{{ product.description }}</p>#}
+{#                <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ product.title }}">#}
+{#            </div>#}
+{#            <div class="col-lg-6">#}
+{#                <h2>Yorumlar</h2>#}
+{#                <div class="comments">#}
+{#                    {% for comment in product.comments %}#}
+{#                        <div class="comment">#}
+{#                            <p><strong>{{ comment.comment }}:</strong></p>#}
+{#                        </div>#}
+{#                    {% else %}#}
+{#                        <p>Henüz yorum yapılmamış.</p>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#                <h3>Yorum Yap</h3>#}
+{#                {{ form_start(comment_form) }}#}
+{#                {{ form_row(comment_form.comment) }}#}
+{#                <button type="submit" class="btn btn-primary">Yorum Gönder</button>#}
+{#                {{ form_end(comment_form) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
+
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ product.title }}{% endblock %}
 
 {% block mainContent %}
+    <style>
+        .product-card {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            flex: 1;
+            max-width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-details {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .comments {
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            margin-top: 10px;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+        }
+
+        .back-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button a:hover {
+            background-color: #0056b3;
+        }
+        .container mt-4{
+            margin: 10px 20px;
+        }
+    </style>
+
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-6">
-                <h1 class="product-title">{{ product.title }}</h1>
-                <p class="product-description">{{ product.description }}</p>
+        <div class="back-button">
+            <a href="{{ path('categories', { id: category.id }) }}">Geri Dön</a>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
                 <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ product.title }}">
             </div>
-            <div class="col-lg-6">
+            <div class="product-details">
+                <h1 class="product-title">{{ product.title }}</h1>
+                <p class="product-description">{{ product.description }}</p>
+
                 <h2>Yorumlar</h2>
                 <div class="comments">
                     {% for comment in product.comments %}
@@ -21,6 +131,7 @@
                         <p>Henüz yorum yapılmamış.</p>
                     {% endfor %}
                 </div>
+
                 <h3>Yorum Yap</h3>
                 {{ form_start(comment_form) }}
                 {{ form_row(comment_form.comment) }}

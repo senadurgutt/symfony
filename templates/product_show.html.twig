@@ -9,7 +9,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 15px;
             background-color: #f9f2f4;
             flex-direction: row;
@@ -22,6 +22,7 @@
             align-items: center;
             justify-content: center;
             margin: 20px;
+            position: relative;
         }
 
         .product-image img {
@@ -64,6 +65,7 @@
             align-items: flex-start;
             background-color: #f9f9f9;
         }
+
         .comment:last-child {
             border-bottom: none;
         }
@@ -99,11 +101,27 @@
         .back-button a:hover {
             background-color: #0056b3;
         }
-        .container mt-4 {
+
+        .container.mt-4 {
             margin: 10px 20px;
         }
-    </style>
 
+        .kalp {
+            background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat 0 0;
+            height: 120px;
+            width: 120px;
+            position: absolute;
+            top: 15px; /* Üstten 15px uzaklık */
+            right: 15px; /* Sağdan 15px uzaklık */
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .kalp.active {
+            background: url(https://www.pngrepo.com/png/283512/512/red-heart.png) no-repeat 0 0;
+        }
+
+    </style>
 
     <div class="container mt-4">
         <div class="back-button">
@@ -112,6 +130,7 @@
         <div class="product-card">
             <div class="product-image">
                 <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ product.title }}">
+                <div class="kalp" id="kalp-button"></div>
             </div>
             <div class="product-details">
                 <h1 class="product-title">{{ product.title }}</h1>
@@ -176,6 +195,15 @@
                         });
                 });
             }
+
+            var kalpButton = document.getElementById('kalp-button');
+
+            if (kalpButton) {
+                kalpButton.addEventListener('click', function () {
+                    kalpButton.classList.toggle('active');
+                });
+            }
+
         });
     </script>
 {% endblock %}

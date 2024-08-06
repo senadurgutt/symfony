@@ -31,6 +31,7 @@
                             <th>Id</th>
                             <th>Comment</th>
                             <th>Userid</th>
+                            <th>Productid</th>
                             <th>Created_at</th>
                             <th>actions</th>
                         </tr>
@@ -41,6 +42,7 @@
                                 <td>{{ admin_comment.id }}</td>
                                 <td>{{ admin_comment.comment }}</td>
                                 <td>{{ admin_comment.userid }}</td>
+                                <td>{{ admin_comment.productid }}</td>
                                 <td>{{ admin_comment.createdAt ? admin_comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>
                                     <a href="{{ path('comment_show', {'id': admin_comment.id}) }}">show</a>

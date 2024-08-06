@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block mainContent %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="product-title">{{ product.title }}</h1>
+                <p class="product-description">{{ product.description }}</p>
+                <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ product.title }}">
+            </div>
+            <div class="col-lg-6">
+                <h2>Yorumlar</h2>
+                <div class="comments">
+                    {% for comment in product.comments %}
+                        <div class="comment">
+                            <p><strong>{{ comment.comment }}:</strong></p>
+                        </div>
+                    {% else %}
+                        <p>Henüz yorum yapılmamış.</p>
+                    {% endfor %}
+                </div>
+                <h3>Yorum Yap</h3>
+                {{ form_start(comment_form) }}
+                {{ form_row(comment_form.comment) }}
+                <button type="submit" class="btn btn-primary">Yorum Gönder</button>
+                {{ form_end(comment_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

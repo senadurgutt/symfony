@@ -12,27 +12,37 @@
             </div>
         </div>
         <div class="product_section_2 layout_padding">
+
+
+
+
             <div class="row">
                 {% for product in products %}
                     <div class="col-lg-3 col-sm-6">
                         <div class="product_box">
-                            <h4 class="bursh_text">{{ product.title }}</h4>
-                            <p class="lorem_text">{{ product.description }}</p>
-                            <img src="{{ asset(product.image) }}" class="image_1">
+                            <a href="{{ path('product_show', { id: product.id }) }}" class="product_link">
+                                <h4 class="bursh_text">{{ product.title }}</h4>
+                                <p class="lorem_text">{{ product.description }}</p>
+                                <img src="{{ asset(product.image) }}" class="image_1">
+                            </a>
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>
-                                        <li class="#"><a href="#">BEGEN</a></li>
+                                        <li class="#"><a href="#">BEĞEN</a></li>
                                         <li class="#"><a href="#">YORUM YAP</a></li>
-
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+
+
+
+
+
+
             <div class="seemore_bt"><a href="#">See More</a></div>
         </div>
     </div>

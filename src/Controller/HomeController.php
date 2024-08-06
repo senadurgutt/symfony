@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\AdminComment;
+use App\Entity\Admin\Product;
+use App\Form\AdminCommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Admin\ProductRepository;
@@ -45,4 +49,53 @@ class HomeController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    /**
+     * @Route("/product/{id}", name="product_show", methods={"GET", "POST"})
+     */
+    public function productshow(Product $product, Request $request, CategoryRepository $categoryRepository): Response
+    {
+        // Form oluşturma
+        $comment = new AdminComment();
+        $comment->setCreatedAt(new \DateTimeImmutable()); // Yorumun oluşturulma tarihini ayarlayın
+        $commentForm = $this->createForm(AdminCommentType::class, $comment);
+        $commentForm->handleRequest($request);
+
+        // Form gönderildiğinde
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setProduct($product);
+            $comment->setUser($this->getUser()); // Kullanıcıyı ayarlayın (eğer mevcutsa)
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Yorum başarıyla eklendi!');
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+
+        // Ürünün yorumlarını al
+        $comments = $product->getComments();
+        $categories = $categoryRepository->findAll();
+
+
+        return $this->render('product_show.html.twig', [
+            'product' => $product,
+            'categories' => $categories,
+            'comments' => $comments,
+            'comment_form' => $commentForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/base", name="base")
+     */
+    public function base(CategoryRepository $categoryRepository): Response
+    {
+        $categories = $categoryRepository->findAll();
+
+        return $this->render('base.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
 }

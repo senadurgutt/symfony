@@ -1,8 +1,10 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\AdminComment;
 use App\Entity\Admin\Product;
 use App\Form\Admin\ProductType;
+use App\Form\AdminCommentType;
 use App\Repository\Admin\ProductRepository;
 use App\Repository\Admin\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,15 +51,23 @@ class ProductController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
-     */
-    public function show(Product $product): Response
-    {
-        return $this->render('admin/product/show.html.twig', [
-            'product' => $product,
-        ]);
-    }
+//    /**
+//     * @Route("/{id}", name="product_show", methods={"GET"})
+//     */
+//    public function show(Product $product, Request $request, CategoryRepository $categoryRepository ): Response
+//    {
+//        $categories = $categoryRepository->findAll();
+//        $member = $product->getMember();
+//        $category = $product->getCategory();
+//
+//        return $this->render('admin/product/show.html.twig', [
+//            'product' => $product,
+//            'categories' => $categories,
+//            'member' => $member,
+//            'category' => $category,
+//        ]);
+//    }
+
     /**
      * @Route("/edit/{id}", name="product_edit", methods={"GET", "POST"})
      */
@@ -153,4 +163,6 @@ class ProductController extends AbstractController
         }
         return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

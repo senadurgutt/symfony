@@ -106,23 +106,39 @@
             margin: 10px 20px;
         }
 
-        .kalp {
-            background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat 0 0;
-            height: 120px;
-            width: 120px;
-            position: absolute;
-            top: 15px; /* Üstten 15px uzaklık */
-            right: 15px; /* Sağdan 15px uzaklık */
-            cursor: pointer;
-            transition: background 0.3s;
+        /* Hover efekti */
+        .product_box:hover .image_1 {
+            transform: scale(1.2); /* Resmi %20 büyütme */
+            z-index: 10; /* Üzerinde diğer öğelerin üstünde kalması için */
         }
 
-        .kalp.active {
-            background: url(https://www.pngrepo.com/png/283512/512/red-heart.png) no-repeat 0 0;
+        /* Büyütülmüş resim için kutu stili */
+        .product_box:hover .image_1::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Koyu bir arka plan */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px;
+        }
+        .star {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .star:hover, .star.active {
+            color: #ffca28;
         }
 
     </style>
-
     <div class="container mt-4">
         <div class="back-button">
             <a href="{{ path('categories', { id: category.id }) }}">Geri Dön</a>
@@ -130,10 +146,14 @@
         <div class="product-card">
             <div class="product-image">
                 <img src="{{ asset(product.image) }}" class="img-fluid" alt="{{ product.title }}">
-                <div class="kalp" id="kalp-button"></div>
             </div>
             <div class="product-details">
                 <h1 class="product-title">{{ product.title }}</h1>
+                <div id="rating" class="d-flex" data-product-id="{{ product.id }}">
+                    {% for i in 1..5 %}
+                    <span class="star" data-value="{{ i }}">&#9733;</span>
+                    {% endfor %}
+                </div>
                 <p class="product-description">{{ product.description }}</p>
 
                 <h2>Yorumlar</h2>
@@ -160,50 +180,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var form = document.getElementById('comment-form');
-            if (form) {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault(); // Formun varsayılan olarak gönderilmesini engeller
-
-                    var formData = new FormData(form);
-
-                    fetch(form.action, {
-                        method: form.method,
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                var commentsList = document.getElementById('comments-list');
-                                var newComment = document.createElement('div');
-                                newComment.classList.add('comment');
-                                newComment.innerHTML = '<p><strong>' + data.comment.member.name + ' ' + data.comment.member.surname + ':</strong> ' + data.comment.comment + '</p>';
-                                commentsList.appendChild(newComment);
-                                form.reset();
-                            } else {
-                                alert('Yorum gönderiminde bir hata oluştu');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Yorum gönderiminde bir hata oluştu');
-                        });
-                });
-            }
-
-            var kalpButton = document.getElementById('kalp-button');
-
-            if (kalpButton) {
-                kalpButton.addEventListener('click', function () {
-                    kalpButton.classList.toggle('active');
-                });
-            }
-
-        });
-    </script>
 {% endblock %}

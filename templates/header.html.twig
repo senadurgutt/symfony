@@ -35,6 +35,13 @@
           media="screen">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!-- header section start -->
@@ -54,7 +61,7 @@
                     </ul>
                 </div>
             </div>
-            <span class="toggle_icon" onclick="openNav()"><img src="public/images/toggle-icon.png"></span>
+            <span class="toggle_icon" onclick="openNav()"><img src="/images/toggle-icon.png"></span>
             <a class="logo" href="#"><img src="/images/logo.png"></a></a>
             <form class="form-inline ">
                 <div class="login_text">
@@ -107,6 +114,94 @@
     function keepCategories() {
         document.getElementById("categoryList").style.display = "block";
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('comment-form');
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Formun varsayılan olarak gönderilmesini engeller
+
+                var formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            var commentsList = document.getElementById('comments-list');
+                            var newComment = document.createElement('div');
+                            newComment.classList.add('comment');
+                            newComment.innerHTML = '<p><strong>' + data.comment.member.name + ' ' + data.comment.member.surname + ':</strong> ' + data.comment.comment + '</p>';
+                            commentsList.appendChild(newComment);
+                            form.reset();
+                        } else {
+                            alert('Yorum gönderiminde bir hata oluştu');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Yorum gönderiminde bir hata oluştu');
+                    });
+            });
+        }
+
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stars = document.querySelectorAll('.star');
+        const productId = document.getElementById('rating').dataset.productId;
+
+        // Load the current rating from the server
+        fetch(`/rating/current/${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.rating) {
+                    stars.forEach(star => {
+                        if (parseInt(star.getAttribute('data-value')) <= data.rating) {
+                            star.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    }
+                });
+
+                // Save the rating
+                fetch('/rating/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ product_id: productId, rating: value })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Rating saved successfully');
+                        } else {
+                            console.error('Failed to save rating');
+                        }
+                    });
+            });
+        });
+    });
 </script>
 </body>
 </html>

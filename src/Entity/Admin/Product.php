@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity\Admin;
+use App\Entity\Rating;
 
 use App\Entity\AdminComment;
 use App\Repository\Admin\ProductRepository;
@@ -145,5 +146,15 @@ class Product
             }
         }
         return $this;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="product")
+     */
+    private $ratings;
+
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
     }
 }

@@ -85,21 +85,23 @@
         }
 
         .back-button {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         .back-button a {
             display: inline-block;
             padding: 10px 20px;
             font-size: 1rem;
-            color: #fff;
-            background-color: #007bff;
+            color: #000000;
+            background-color: #E0E0E0;
             text-decoration: none;
             border-radius: 5px;
         }
 
         .back-button a:hover {
-            background-color: #0056b3;
+            background-color: #000000;
+            color: #E0E0E0;
+
         }
 
         .container.mt-4 {
@@ -129,13 +131,15 @@
             text-align: center;
             padding: 10px;
         }
+
         .star {
             font-size: 2rem;
             color: #ccc;
             cursor: pointer;
         }
+
         .star:hover, .star.active {
-            color: #ffca28;
+            color: #ffc100;
         }
 
     </style>
@@ -149,11 +153,18 @@
             </div>
             <div class="product-details">
                 <h1 class="product-title">{{ product.title }}</h1>
-                <div id="rating" class="d-flex" data-product-id="{{ product.id }}">
-                    {% for i in 1..5 %}
-                    <span class="star" data-value="{{ i }}">&#9733;</span>
-                    {% endfor %}
+
+                <div class="rating" id="ratings-list">
+                    <div id="rating" data-product-id="{{ product.id }}" class="d-flex">
+                        {% for i in 1..5 %}
+                            <span class="star {% if i <= current_rating %}active{% endif %}" data-value="{{ i }}">&#9733;</span>
+                        {% endfor %}
+                    </div>
                 </div>
+
+
+
+
                 <p class="product-description">{{ product.description }}</p>
 
                 <h2>Yorumlar</h2>
@@ -180,4 +191,45 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ratingDiv = document.getElementById('rating');
+
+            ratingDiv.addEventListener('click', function(event) {
+                const target = event.target;
+
+                if (target.classList.contains('star')) {
+                    const ratingValue = target.getAttribute('data-value');
+                    const productId = ratingDiv.getAttribute('data-product-id');
+
+                    fetch('{{ path('rating_submit') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new URLSearchParams({
+                            'product_id': productId,
+                            'rating': ratingValue
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                ratingDiv.querySelectorAll('.star').forEach(star => star.classList.remove('active'));
+
+                                for (let i = 1; i <= ratingValue; i++) {
+                                    ratingDiv.querySelector(`.star[data-value="${i}"]`).classList.add('active');
+                                }
+                            } else {
+                                alert('Error saving rating.');
+                            }
+                        });
+                }
+            });
+        });
+    </script>
+
+
 {% endblock %}

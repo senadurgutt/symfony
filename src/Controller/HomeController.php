@@ -12,6 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\Admin\ProductRepository;
 use App\Repository\Admin\CategoryRepository;
+use App\Repository\RatingRepository;
+use App\Entity\Rating;
+use Doctrine\ORM\EntityManagerInterface;
 
 class HomeController extends AbstractController
 {
@@ -53,19 +56,20 @@ class HomeController extends AbstractController
     /**
      * @Route("/product/{id}", name="product_show", methods={"GET", "POST"})
      */
-    public function productshow(Product $product, Request $request, CategoryRepository $categoryRepository): Response
+    public function productShow(Product $product, Request $request, CategoryRepository $categoryRepository, RatingRepository $ratingRepository, EntityManagerInterface $entityManager): Response
     {
         // Form oluşturma
         $comment = new AdminComment();
         $comment->setCreatedAt(new \DateTimeImmutable()); // Yorumun oluşturulma tarihini ayarlayın
         $commentForm = $this->createForm(AdminCommentType::class, $comment);
         $commentForm->handleRequest($request);
+        $member = $this->getUser();
+        $currentRating = null;
 
         // Form gönderildiğinde
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setProduct($product);
-            $comment->setMember($this->getUser()); // Kullanıcıyı ayarlayın (eğer mevcutsa)
-            $entityManager = $this->getDoctrine()->getManager();
+            $comment->setMember($member); // Kullanıcıyı ayarlayın (eğer mevcutsa)
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -86,6 +90,14 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
         }
 
+        if ($member) {
+            $rating = $ratingRepository->findOneBy([
+                'product' => $product,
+                'member' => $member
+            ]);
+            $currentRating = $rating ? $rating->getRating() : null;
+        }
+
         // Ürünün yorumlarını al
         $comments = $product->getComments();
         $categories = $categoryRepository->findAll();
@@ -99,9 +111,40 @@ class HomeController extends AbstractController
             'comments' => $comments,
             'comment_form' => $commentForm->createView(),
             'category' => $category, // Kategori değişkenini template'e gönder
+            'current_rating' => $currentRating,
         ]);
     }
 
+    /**
+     * @Route("/rating/submit", name="rating_submit", methods={"POST"})
+     */
+    public function submitRating(Request $request, RatingRepository $ratingRepository, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $productId = $request->request->get('product_id');
+        $ratingValue = $request->request->get('rating');
+        $member = $this->getUser();
+
+        if ($productId && $ratingValue && $member) {
+            $product = $entityManager->getRepository(Product::class)->find($productId);
+            if ($product) {
+                $rating = $ratingRepository->findOneBy([
+                    'product' => $product,
+                    'member' => $member,
+                ]) ?? new Rating();
+
+                $rating->setProduct($product);
+                $rating->setMember($member);
+                $rating->setRating($ratingValue);
+
+                $entityManager->persist($rating);
+                $entityManager->flush();
+
+                return new JsonResponse(['success' => true]);
+            }
+        }
+
+        return new JsonResponse(['success' => false]);
+    }
 
 
     /**
@@ -144,6 +187,5 @@ class HomeController extends AbstractController
 
         return new JsonResponse(['success' => false]);
     }
-
 
 }

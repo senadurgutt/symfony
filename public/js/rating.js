@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stars = document.querySelectorAll('.star');
     const productId = document.getElementById('rating').dataset.productId;
 
-    // Load the current rating from the server
+    // Mevcut derecelendirmeyi sunucudan yükle
     fetch(`/rating/current/${productId}`)
         .then(response => response.json())
         .then(data => {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Save the rating
+            // Derecelendirmeyi sunucuya kaydet
             fetch('/rating/submit', {
                 method: 'POST',
                 headers: {

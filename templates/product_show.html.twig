@@ -13,6 +13,9 @@
             padding: 15px;
             background-color: #f9f2f4;
             flex-direction: row;
+            justify-content: center; /* Yatayda ortalamak için */
+            align-items: center;     /* Dikeyde ortalamak için */
+            place-items: center;
         }
 
         .product-image {
@@ -23,13 +26,20 @@
             justify-content: center;
             margin: 20px;
             position: relative;
+            transition: transform 0.3s ease; /* Büyütme efekti için geçiş süresi */
         }
 
         .product-image img {
             width: 100%;
             height: auto;
             object-fit: cover;
+            transition: transform 0.3s ease; /* Görsel büyütme geçiş efekti */
         }
+
+        .product-image:hover img {
+            transform: scale(1.1); /* Resmi %10 büyütür */
+        }
+
 
         .product-details {
             flex: 1;
@@ -45,6 +55,48 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
         }
+
+        /* Modal Container */
+        .modal {
+            display: none; /* Varsayılan olarak gizli */
+            position: fixed; /* Ekranın üst kısmında */
+            z-index: 1000; /* Diğer içeriklerin üzerinde kalması için */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* İçerik taşmasını önler */
+            background-color: rgba(0,0,0,0.8); /* Koyu bir arka plan */
+        }
+
+        /* Modal İçerik */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%; /* Görselin genişliği */
+            max-width: 700px; /* Maksimum genişlik */
+        }
+
+        /* Kapatma Düğmesi */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Kapatma Düğmesinin üzerine gelince */
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
 
         .comments {
             max-height: 200px;
@@ -162,9 +214,6 @@
                     </div>
                 </div>
 
-
-
-
                 <p class="product-description">{{ product.description }}</p>
 
                 <h2>Yorumlar</h2>
@@ -185,11 +234,16 @@
 
                 <h3>Yorum Yap</h3>
                 {{ form_start(comment_form, { 'attr': { 'id': 'comment-form' } }) }}
-                {{ form_row(comment_form.comment) }}
-                <button type="submit" class="btn btn-primary">Yorum Gönder</button>
+                {{ form_widget(comment_form.comment) }}
                 {{ form_end(comment_form) }}
             </div>
         </div>
+    </div>
+
+    <div id="image-modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div id="caption"></div>
     </div>
 
     <script>
@@ -226,6 +280,69 @@
                                 alert('Error saving rating.');
                             }
                         });
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentForm = document.getElementById('comment-form');
+
+            commentForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Formun normal gönderimini engelle
+
+                const formData = new FormData(commentForm);
+
+                fetch('{{ path('product_show', { id: product.id }) }}', { // Burada doğru rota adını kullandığınızdan emin olun
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const commentList = document.getElementById('comments-list');
+                            const newComment = document.createElement('div');
+                            newComment.classList.add('comment');
+                            newComment.innerHTML = `
+                    <div class="comment-header">
+                        <strong>${data.comment.member.name} ${data.comment.member.surname}</strong>
+                    </div>
+                    <div class="comment-body">
+                        ${data.comment.comment}
+                    </div>
+                `;
+                            commentList.appendChild(newComment);
+                            commentForm.reset();
+                        } else {
+                            alert('Error adding comment.');
+                        }
+                    });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const captionText = document.getElementById('caption');
+            const images = document.querySelectorAll('.product-image img');
+            const closeBtn = document.querySelector('.close');
+
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.style.display = 'block';
+                    modalImg.src = this.src;
+                    captionText.innerHTML = this.alt;
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
                 }
             });
         });

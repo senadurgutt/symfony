@@ -8,7 +8,6 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>YORUMLAR
-                <small><a href="{{ path('comment_new') }}">Kullanıcı ekle </a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,10 +29,10 @@
                         <tr>
                             <th>Id</th>
                             <th>Comment</th>
-                            <th>Userid</th>
-                            <th>Productid</th>
-                            <th>Created_at</th>
-                            <th>actions</th>
+                            <th>User</th>
+                            <th>Product Title</th>
+                            <th>Created Time</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,12 +40,17 @@
                             <tr>
                                 <td>{{ admin_comment.id }}</td>
                                 <td>{{ admin_comment.comment }}</td>
-                                <td>{{ admin_comment.userid }}</td>
-                                <td>{{ admin_comment.productid }}</td>
+                                <td>{{ admin_comment.member.name }}</td>
+                                <td>{{ admin_comment.product.title }}</td>
                                 <td>{{ admin_comment.createdAt ? admin_comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('comment_show', {'id': admin_comment.id}) }}">show</a>
-                                    <a href="{{ path('comment_edit', {'id': admin_comment.id}) }}">edit</a>
+
+                                        <form action="{{ path('comment_delete', {'id': admin_comment.id }) }}" method="post" style="display: inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ admin_comment.id) }}">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?')">Sil</button>
+                                        </form>
+
+
                                 </td>
                             </tr>
                         {% else %}

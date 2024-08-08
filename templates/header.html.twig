@@ -36,8 +36,18 @@
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .dropdown-menu {
+            margin-top: 0; /* Menü ile ikon arasındaki boşluğu kaldırır */
+        }
+    </style>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -65,10 +75,18 @@
             <a class="logo" href="{{ path('home') }}"><img src="/images/logo.png"></a></a>
             <form class="form-inline ">
                 <div class="login_text">
-                    <ul>
-                        <li><a href="app_login"><img src="/images/user-icon.png"></a></li>
-                        <li><a href="#"><img src="/images/search-icon.png"></a></li>
-                    </ul>
+
+                    <div class="container mt-5">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/images/user-icon.png" alt="User Icon" style="width: 40px; height: 40px;">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">Çıkış Yap</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </nav>

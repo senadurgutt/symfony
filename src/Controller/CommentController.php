@@ -21,11 +21,13 @@ class CommentController extends AbstractController
      */
     public function index(AdminCommentRepository $adminCommentRepository, CategoryRepository $categoryRepository): Response
     {
+        $comments = $adminCommentRepository->findAll();
         $categories = $categoryRepository->findAll(); // Kategorileri alın
 
         return $this->render('comment/index.html.twig', [
             'admin_comments' => $adminCommentRepository->findAll(),
             'categories' => $categories, // Kategorileri şablona ekleyin
+            'comments' => $comments,
         ]);
     }
 
@@ -90,5 +92,6 @@ class CommentController extends AbstractController
         }
 
         return $this->redirectToRoute('comment_index', [], Response::HTTP_SEE_OTHER);
+
     }
 }

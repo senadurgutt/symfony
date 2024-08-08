@@ -53,69 +53,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/product/{id}", name="product_show", methods={"GET", "POST"})
-//     */
-//    public function productShow(Product $product, Request $request, CategoryRepository $categoryRepository, RatingRepository $ratingRepository, EntityManagerInterface $entityManager): Response
-//    {
-//        // Form oluşturma
-//        $comment = new AdminComment();
-//        $comment->setCreatedAt(new \DateTimeImmutable()); // Yorumun oluşturulma tarihini ayarlayın
-//        $commentForm = $this->createForm(AdminCommentType::class, $comment);
-//        $commentForm->handleRequest($request);
-//        $member = $this->getUser();
-//        $currentRating = null;
-//
-//        // Form gönderildiğinde
-//        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-//            $comment->setProduct($product);
-//            $comment->setMember($member); // Kullanıcıyı ayarlayın (eğer mevcutsa)
-//            $entityManager->persist($comment);
-//            $entityManager->flush();
-//
-//            if ($request->isXmlHttpRequest()) {
-//                return new JsonResponse([
-//                    'success' => true,
-//                    'comment' => [
-//                        'member' => [
-//                            'name' => $comment->getMember()->getName(),
-//                            'surname' => $comment->getMember()->getSurname(),
-//                        ],
-//                        'comment' => $comment->getComment(),
-//                    ],
-//                ]);
-//            }
-//
-//            $this->addFlash('success', 'Yorum başarıyla eklendi!');
-//            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
-//        }
-//
-//        if ($member) {
-//            $rating = $ratingRepository->findOneBy([
-//                'product' => $product,
-//                'member' => $member
-//            ]);
-//            $currentRating = $rating ? $rating->getRating() : null;
-//        }
-//
-//        // Ürünün yorumlarını al
-//        $comments = $product->getComments();
-//        $categories = $categoryRepository->findAll();
-//
-//        // Ürünün kategorisini al
-//        $category = $product->getCategory();
-//
-//        return $this->render('product_show.html.twig', [
-//            'product' => $product,
-//            'categories' => $categories,
-//            'comments' => $comments,
-//            'comment_form' => $commentForm->createView(),
-//            'category' => $category, // Kategori değişkenini template'e gönder
-//            'current_rating' => $currentRating,
-//        ]);
-//    }
-
-
     /**
      * @Route("/product/{id}", name="product_show", methods={"GET", "POST"})
      */

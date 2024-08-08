@@ -336,4 +336,15 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * Member nesnesini stringe dönüştürmek için kullanılır.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        // Örneğin, kullanıcı adını döndürebilirsiniz:
+        return $this->name; // veya $this->email, $this->surname vb.
+    }
 }

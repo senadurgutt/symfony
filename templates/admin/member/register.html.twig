@@ -139,22 +139,18 @@
 
 
 
-{% extends 'adminbase.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Kullanıcı Kaydı{% endblock %}
 
-{% block body %}
+{% block mainContent %}
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
                 Kullanıcı Kayıt
                 <small><a href="{{ path('app_login') }}">Giriş Yap</a></small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Examples</a></li>
-                <li class="active">Kayıt Sayfası</li>
-            </ol>
+
         </section>
 
         <section class="content">

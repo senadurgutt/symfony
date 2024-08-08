@@ -1,20 +1,95 @@
-{% extends 'base.html.twig' %}
+{% extends 'adminbase.html.twig' %}
 
-{% block title %}Hello RatingController!{% endblock %}
+{% block title %}BEGENILENLER{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>BEGENILENLER
+            </h1>
+        </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/RatingController.php'|file_link(0) }}">src/Controller/RatingController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/rating/index.html.twig'|file_link(0) }}">templates/rating/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Bordered Table</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>User Name </th>
+                            <th>Product Title</th>
+                            <th>Rating</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rating in ratings %}
+                            <tr>
+                                <td>{{ rating.id }}</td>
+                                <td>{{ rating.member.name }}</td>
+                                <td>{{ rating.product.title }}</td>
+                                <td>{{ rating.rating }}/5</td>
+                                <td>
+
+                                    <form action="{{ path('rating_delete', {'id': rating.id }) }}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rating.id) }}">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bu değerlendirmeyi silmek istediğinizden emin misiniz?')">Sil</button>
+                                    </form>
+
+
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div><!-- /.box -->
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
 {% endblock %}
+
+
+
+
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Hello RatingController!{% endblock %}#}
+
+{#{% block body %}#}
+{#<style>#}
+{#    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }#}
+{#    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }#}
+{#</style>#}
+
+{#<div class="example-wrapper">#}
+{#    <h1>Hello {{ controller_name }}! ✅</h1>#}
+
+{#    This friendly message is coming from:#}
+{#    <ul>#}
+{#        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/RatingController.php'|file_link(0) }}">src/Controller/RatingController.php</a></code></li>#}
+{#        <li>Your template at <code><a href="{{ '/var/www/html/templates/rating/index.html.twig'|file_link(0) }}">templates/rating/index.html.twig</a></code></li>#}
+{#    </ul>#}
+{#</div>#}
+{#{% endblock %}#}

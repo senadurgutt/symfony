@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Admin\Product;
+use App\Entity\AdminComment;
 use App\Entity\Rating;
+use App\Repository\Admin\CategoryRepository;
+use App\Repository\AdminCommentRepository;
 use App\Repository\RatingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +20,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RatingController extends AbstractController
 {
+    /**
+     * @Route("/index", name="rating_index", methods={"GET"})
+     */
+    public function index(AdminCommentRepository $adminCommentRepository,RatingRepository $RatingRepository): Response
+    {
+
+        $ratings = $RatingRepository->findAll();
+
+        return $this->render('rating/index.html.twig', [
+            'controller_name' => 'RatingController',
+            'ratings' => $ratings,
+        ]);
+    }
+
     /**
      * @Route("/submit", name="rating_submit", methods={"POST"})
      */
@@ -70,5 +87,19 @@ class RatingController extends AbstractController
         }
 
         return new JsonResponse(['rating' => null]);
+    }
+    /**
+     * @Route("/{id}", name="rating_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Rating $rating, RatingRepository $ratingRepository): Response
+    {
+        // CSRF koruması - token doğrulaması
+        if ($this->isCsrfTokenValid('delete'.$rating->getId(), $request->request->get('_token'))) {
+            // Rating entity'sini silme
+            $ratingRepository->remove($rating, true);
+        }
+
+        // Silme işlemi tamamlandıktan sonra yönlendirme
+        return $this->redirectToRoute('rating_index', [], Response::HTTP_SEE_OTHER);
     }
 }

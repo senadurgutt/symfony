@@ -3136,7 +3136,7 @@ input[type="button"].btn-block {
   height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #e19850;
 }
 
 .dropdown-item {
@@ -3145,7 +3145,7 @@ input[type="button"].btn-block {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  color: #212529;
+  color: #151212;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
@@ -3155,11 +3155,11 @@ input[type="button"].btn-block {
 .dropdown-item:hover, .dropdown-item:focus {
   color: #16181b;
   text-decoration: none;
-  background-color: #f8f9fa;
+  background-color: #8dbae6;
 }
 
 .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
+  color: #3c8cbb;
   text-decoration: none;
   background-color: #007bff;
 }

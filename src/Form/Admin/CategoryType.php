@@ -18,10 +18,11 @@ class CategoryType extends AbstractType
             ->add('description')
             ->add('category', ChoiceType::class, [
                 'choices' => [
-                    'Mia' => 'Mia',
-                    'Kaju' => 'Kaju',
-                    'Vikvik' => 'Vikvik',
-                    'Limon' => 'Limon',
+                    'Nature' => 'Nature',
+                    'Wall Art' => 'Wall Art',
+                    'Black & White' => 'Black & White',
+                    'Cubism' => 'Cubism',
+
                 ],
                 'attr' => ['class' => 'form-control'],
                 'placeholder' => 'Select Category', // İsteğe bağlı: boş seçeneği ekleyebilirsiniz

@@ -62,12 +62,16 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a href="{{ path('home') }}">Anasayfa</a>
                 <a href="#">Beğenilenler</a>
-                <a href="about.html" onmouseover="showCategories()" onmouseout="hideCategories()">Kategoriler</a>
+                <a href="#" onmouseover="showCategories()" onmouseout="hideCategories()">Kategoriler</a>
                 <div id="categoryList" style="display: none;" onmouseover="keepCategories()" onmouseout="hideCategories()">
                     <ul>
-                        {% for category in categories %}
-                            <li><a href="{{ path('categories', {'id': category.id}) }}">{{ category.category }}</a></li>
-                        {% endfor %}
+                        {% if categories is not empty %}
+                            {% for category in categories %}
+                                <li><a href="{{ path('categories', {'id': category.id}) }}">{{ category.category }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li>Kategori bulunamadı.</li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

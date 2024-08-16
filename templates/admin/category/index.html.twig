@@ -5,7 +5,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>Kategori Listesi
-                <small><a href="{{ path('category_new')  }}">Kategori ekle </a></small>
+                <small><a href="{{ path('category_new') }}">Kategori ekle </a></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,7 +24,6 @@
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Parent Id</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Category</th>
@@ -36,12 +35,13 @@
                             {% for category in categories %}
                                 <tr>
                                     <td>{{ category.id }}</td>
-                                    <td>{{ category.parentId }}</td>
                                     <td>{{ category.title }}</td>
                                     <td>{{ category.description }}</td>
                                     <td>{{ category.category }}</td>
+
+
                                     <td>
-                                        <a href="{{ path('categories', {'id': category.id}) }}" class="btn btn-primary" >Göster</a>
+                                        <a href="{{ path('categories', {'id': category.id}) }}" class="btn btn-primary">Göster</a>
                                     </td>
                                 </tr>
                             {% endfor %}

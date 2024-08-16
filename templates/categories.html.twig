@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="product_taital">{{ category.category }} Kategorisi</h1>
+                <h1 class="product_title">{{ category.category }} Kategorisi</h1>
                 <p class="product_text">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
             </div>
         </div>
@@ -24,8 +24,7 @@
                             <div class="btn_main">
                                 <div class="buy_bt">
                                     <ul>
-                                        <li class="#"><a href="#">BEĞEN</a></li>
-                                        <li class="#"><a href="#">YORUM YAP</a></li>
+                                        <li class="#"><a href="{{ path('product_show', { id: product.id }) }}">YORUM YAP</a></li>
                                     </ul>
                                 </div>
                             </div>

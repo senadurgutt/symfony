@@ -12,6 +12,10 @@ class MemberRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Member::class);
     }
-
-    // Özel sorguları buraya ekleyebilirsiniz
+    public function findAll()
+    {
+        return $this->createQueryBuilder('m')
+            ->getQuery()
+            ->getResult();
+    }
 }

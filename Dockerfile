@@ -4,15 +4,21 @@ FROM php:7.4-fpm
 # Set working directory
 WORKDIR /var/www/html
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y \
-        unzip \
-        libpq-dev \
-        && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug && \
-    docker-php-ext-install pdo pdo_pgsql
+# Güncellemeleri ve gerekli paketleri yükle
+RUN apt-get update && apt-get install -y \
+    unzip \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Xdebug kanalını güncelle
+RUN pecl channel-update pecl.php.net
+
+# Xdebug'i yükle
+RUN pecl install xdebug-3.0.4 \
+    && docker-php-ext-enable xdebug
+
+# Diğer PHP uzantılarını yükle
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Xdebug yapılandırması için ayarları ekleyin
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini

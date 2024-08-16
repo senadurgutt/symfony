@@ -1,15 +1,19 @@
 <?php
-//// src/Entity/Member.php
+//
 //namespace App\Entity;
 //
+//use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\Common\Collections\Collection;
 //use Doctrine\ORM\Mapping as ORM;
 //use Symfony\Component\Security\Core\User\UserInterface;
+//use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+//
 //
 ///**
 // * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
 // * @ORM\Table(name="member")
 // */
-//class Member implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
+//class Member implements UserInterface, PasswordAuthenticatedUserInterface
 //{
 //    /**
 //     * @ORM\Id
@@ -43,9 +47,15 @@
 //     */
 //    private $roles = [];
 //
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\AdminComment", mappedBy="member")
+//     */
+//    private $comments;
+//
 //    public function __construct()
 //    {
 //        $this->roles = ['ROLE_USER'];
+//        $this->comments = new ArrayCollection();
 //    }
 //
 //    public function getId(): ?int
@@ -129,11 +139,6 @@
 //    }
 //
 //    /**
-//     * @ORM\OneToMany(targetEntity="App\Entity\AdminComment", mappedBy="member")
-//     */
-//    private $comments;
-//
-//    /**
 //     * @return Collection|AdminComment[]
 //     */
 //    public function getComments(): Collection
@@ -163,13 +168,19 @@
 //        return $this;
 //    }
 //
-//
+//    /**
+//     * Member nesnesini stringe dönüştürmek için kullanılır.
+//     *
+//     * @return string
+//     */
+//    public function __toString(): string
+//    {
+//        // Örneğin, kullanıcı adını döndürebilirsiniz:
+//        return $this->name; // veya $this->email, $this->surname vb.
+//    }
 //}
-//
-//
-//
 
-// src/Entity/Member.php
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -224,7 +235,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
-        $this->comments = new ArrayCollection();
+        $this->comments = new ArrayCollection(); // ArrayCollection ile comments ilişkisini başlatın
     }
 
     public function getId(): ?int
@@ -279,8 +290,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_USER'; // Her kullanıcı için varsayılan olarak ROLE_USER eklenir
         return array_unique($roles);
     }
 
@@ -292,8 +302,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getSalt(): ?string
     {
-        // Not needed for bcrypt or argon2i
-        return null;
+        return null; // bcrypt veya argon2i için gerek yok
     }
 
     public function getUsername(): string
@@ -303,11 +312,11 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Geçici verileri temizlemek için kullanılabilir
     }
 
     /**
+     * Yorumlar için getter
      * @return Collection|AdminComment[]
      */
     public function getComments(): Collection
@@ -315,6 +324,9 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->comments;
     }
 
+    /**
+     * Yorum ekleme
+     */
     public function addComment(AdminComment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -325,10 +337,12 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Yorum silme
+     */
     public function removeComment(AdminComment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
             if ($comment->getMember() === $this) {
                 $comment->setMember(null);
             }
@@ -344,7 +358,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function __toString(): string
     {
-        // Örneğin, kullanıcı adını döndürebilirsiniz:
         return $this->name; // veya $this->email, $this->surname vb.
     }
 }

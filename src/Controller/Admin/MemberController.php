@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 use App\Entity\Member;
 use App\Form\MemberType;
+use App\Repository\MemberRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,9 @@ class MemberController extends AbstractController
     /**
      * @Route("/admin/member/index", name="member_index")
      */
-    public function index()
+    public function index(MemberRepository $memberRepository)
     {
-        $members = $this->entityManager->getRepository(Member::class)->findAll();
+        $members = $memberRepository->findAll();
 
         return $this->render('admin/member/index.html.twig', [
             'members' => $members,

@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="product_index", methods={"GET"})
+     * @Route("/", name="product_index", methods={"GET", "POST"})
      */
     public function index(ProductRepository $productRepository): Response
     {
@@ -99,12 +99,17 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->save($product, true);
-            return $this->redirectToRoute('product_imgedit', ['id' => id], Response::HTTP_SEE_OTHER);
+//            return $this->redirectToRoute('product_imgedit', ['id' => id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('product_imgedit', ['id' => $product->getId()], Response::HTTP_SEE_OTHER);
+
         }
+        $commentForm = $this->createForm(CommentType::class);
+
         return $this->render('admin/product/imgedit.html.twig', [
             'product' => $product,
             'form' => $form,
             'id' => $id,
+            'comment_form' => $commentForm->createView(), // Bu kısım eklendi
         ]);
     }
 

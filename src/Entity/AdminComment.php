@@ -26,7 +26,7 @@ class AdminComment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="member_id",nullable=false)
      */
     private $member;
 

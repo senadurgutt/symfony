@@ -12,8 +12,8 @@ class CategoryControllerTest extends WebTestCase
         $client->request('GET', '/admin/category/index');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Category List');
+        $this->assertSelectorTextContains('h1',  'Category List');
     }
 
-// Diğer test metodlarını buraya ekleyebilirsiniz
+// Diğer test metodlar buraya
 }

@@ -45,5 +45,4 @@ class CategoryControllerTest extends WebTestCase
         $this->assertSelectorTextContains('.box-title', 'Bordered Table');
     }
 
-// Diğer test metodlar buraya
 }

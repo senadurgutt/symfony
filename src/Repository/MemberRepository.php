@@ -12,7 +12,12 @@ class MemberRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Member::class);
     }
-    public function findAll()
+
+
+    /**
+     * @return Member[] Returns an array of Member objects
+     */
+    public function findAll(): array
     {
         return $this->createQueryBuilder('m')
             ->getQuery()

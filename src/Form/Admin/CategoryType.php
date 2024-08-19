@@ -16,17 +16,7 @@ class CategoryType extends AbstractType
             ->add('parentId')
             ->add('title')
             ->add('description')
-            ->add('category', ChoiceType::class, [
-                'choices' => [
-                    'Nature' => 'Nature',
-                    'Wall Art' => 'Wall Art',
-                    'Black & White' => 'Black & White',
-                    'Cubism' => 'Cubism',
-
-                ],
-                'attr' => ['class' => 'form-control'],
-                'placeholder' => 'Select Category', // İsteğe bağlı: boş seçeneği ekleyebilirsiniz
-            ]);
+            ->add('category');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

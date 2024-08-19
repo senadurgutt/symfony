@@ -30,34 +30,6 @@ class MemberController extends AbstractController
             'members' => $members,
         ]);
     }
-//    /**
-//     * @Route("/register", name="member_form")
-//     */
-//    public function form(Request $request): Response
-//    {
-//        $members = $this->entityManager->getRepository(Member::class)->findAll();
-//
-//        $member = new Member();
-//        // Formu oluştur
-//        $form = $this->createForm(MemberType::class, $member, [
-//            'csrf_protection' => false,
-//        ]);
-//        $form->handleRequest($request);
-//
-//        // Form verisi ile işleme
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->entityManager->persist($member);
-//            $this->entityManager->flush();
-//
-//            return $this->redirectToRoute('member_index');
-//        }
-//
-//        return $this->render('admin/member/form.html.twig', [
-//            'form' => $form->createView(),
-//            'members' => $members,
-//        ]);
-//    }
-
     /**
      * @Route("/admin/member/delete/{id}", name="member_delete")
      */
